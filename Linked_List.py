@@ -54,12 +54,13 @@ class Linked_list:
                 new_node = Node(value)
                 new_node.next = temp
                 pre.next = new_node
-    #These two functions are for printing            
+    #This function takes a list and adds a link to the end of the list           
     def setter(self, lst):
         self.head = None
         self.length = 0
         for value in lst[::-1]:
             self.push(value)
+    #This function is for printing the linked list
     def __str__(self):
         _str = ""
         temp = self.head
@@ -72,9 +73,44 @@ class Linked_list:
     #Returns the number of elements in the list.
     def __len__(self):
         return self.length
-    
-    
-
+    #This function is to delete the element with index
+    def pop(self,index = -1):
+        if index == -1:
+            temp = self.head
+            while(temp.next.next):
+                temp = temp.next
+            data = temp.next.next
+            temp.next = None
+            self.length += -1
+            return data
+        elif index ==0:
+            temp = self.head
+            data = temp.data
+            self.head = temp.next            
+            return data
+        else:
+            temp = self.head
+            index -= 1
+            while index:
+                index -= 1
+                temp = temp.next
+            data = temp.next.data
+            temp.next = temp.next.next
+            return data
+    #This function is for mirroring the list
+    def reverse(self):
+        pre = None
+        cur = self.head
+        while cur:
+            _next = cur.next
+            cur.next = pre
+            pre = cur
+            cur = _next
+            
+        self.head = pre
+        
+        
+        
 ll = Linked_list()
 ll.append(1)
 ll.append(2)
@@ -84,6 +120,7 @@ ll.push(5)
 ll.insert(2,6)
 ll.insert(-10,7)
 ll.insert(100,8)
+ll.pop(5)
 
-
+print(len(ll))
 print(ll)
